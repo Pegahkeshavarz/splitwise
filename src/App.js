@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import Login from "./components/login";
+import Register from "./components/register";
 
-function App() {
+import Home from "./components/home";
+
+import {AuthProvider} from "./authContexts";
+import {BrowserRouter as Router, useRoutes,} from "react-router-dom";
+
+const App = () => {
+  return useRoutes([
+    {
+      path: "*",
+      element: <Login/>,
+    },
+    {
+      path: "/login",
+      element: <Login/>,
+    },
+    {
+      path: "/register",
+      element: <Register/>,
+    },
+    {
+      path: "/home",
+      element: <Home/>,
+    },
+  ]);
+};
+
+const AppWrapper = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <AuthProvider>
+         <App />
+      </AuthProvider>
+    </Router>
   );
-}
+};
 
-export default App;
+export default AppWrapper;
+
